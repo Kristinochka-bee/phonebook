@@ -14,6 +14,7 @@ public class FirstSeleniumTest {
     By passwordField = By.cssSelector("[placeholder=\"Password\"]");
 
     By confirmPassField = By.cssSelector("[placeholder=\"Confirm Password\"]");
+    By confirmPassField1 = By.cssSelector("[placeholder=\"Confirm Password\"]");
 
 
     //before
