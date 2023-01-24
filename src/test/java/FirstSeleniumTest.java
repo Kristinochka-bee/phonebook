@@ -12,7 +12,6 @@ public class FirstSeleniumTest {
     WebDriver driver;
     By emailField = By.cssSelector("[placeholder=\"Email\"]");
     By passwordField = By.cssSelector("[placeholder=\"Password\"]");
-
     By confirmPassField = By.cssSelector("[placeholder=\"Confirm Password\"]");
 
 
