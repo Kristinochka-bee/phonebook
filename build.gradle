@@ -37,7 +37,8 @@ dependencies {
 
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.3.1'  // подтягивает драйверы
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-    implementation group: 'org.testng', name: 'testng', version: '7.1.0'
+//подтягивает методы. Основа на кот пишется тест
+    implementation group: 'org.testng', name: 'testng', version: '7.1.0' //подтягивает методы,которых нет в селениуме
     implementation 'com.github.javafaker:javafaker:1.0.2'  // будет делать рандомные данные
 }
 

@@ -63,6 +63,7 @@ public class TaskQA1 {
         String url1 = "https://www.google.com/login"; //домен должен быть либо com or de
         System.out.println(url1.matches("https://www\\..+\\.[a-z]+/.+")); //в конце может быть любое слово от а до з и + любое слово в конце . в наш случае login
 
-
+        String task = "helrlo";//Task
+        System.out.println(c.matches("[a-zA-Z\\d+]{6,}"));
     }
 }
