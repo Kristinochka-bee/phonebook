@@ -41,14 +41,17 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
         Assert.assertEquals(actualErrorMessage, expectedErrorMessage, err); //позитивный тест
 
         //Негативные тесты
-        String expectedErrorMessag = "noErrorMs"; //как не должно быть
-        Assert.assertNotEquals(actualErrorMessage, expectedErrorMessag, err);
-
         By actualUserRegistrationLink = By.cssSelector("[/user/forgot-password]");// неверный локатор
         By expectedUserRegistrationLink = By.cssSelector("[href=/user/registration]");// верный локатор
         Assert.assertNotEquals(actualUserRegistrationLink, expectedUserRegistrationLink);
 
+        Assert.assertFalse(isElementPresent(By.xpath("registration-form"))); //неверно выбранный селектор для регистрационной формы
+        Assert.assertFalse(isElementPresent(By.cssSelector("type=\"password\""))); //неверно подставленн адресс
+        Assert.assertFalse(isElementPresent(By.cssSelector("[\"Confirm Password\"]")));
+        Assert.assertFalse(isElementPresent(By.xpath("//*[@type=\"button\"]")));
 
+        String expectedErrorMessag = "noErrorMs"; //как не должно быть
+        Assert.assertNotEquals(actualErrorMessage, expectedErrorMessag, err);
     }
 
 
