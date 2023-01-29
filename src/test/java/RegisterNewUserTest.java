@@ -33,11 +33,22 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
         fillField(password, passwordField);
         fillField(password, confirmPassField);
         driver.findElement(loginButton).click();
-        String actualErrorMessage = driver.findElement(errorMessageBlock).getText(); // фактический результат
+        String actualErrorMessage = driver.findElement(errorMessageBlock).getText(); // фактический результат отображаемой ошибки
 
-        //Assert сравнение,  проверка
+
+        //Assert сравнение,  проверка Позитивные тесты
         String err = "Actual error message is not equal expected";
-        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, err);
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, err); //позитивный тест
+
+        //Негативные тесты
+        String expectedErrorMessag = "noErrorMs"; //как не должно быть
+        Assert.assertNotEquals(actualErrorMessage, expectedErrorMessag, err);
+
+        By actualUserRegistrationLink = By.cssSelector("[/user/forgot-password]");// неверный локатор
+        By expectedUserRegistrationLink = By.cssSelector("[href=/user/registration]");// верный локатор
+        Assert.assertNotEquals(actualUserRegistrationLink, expectedUserRegistrationLink);
+
+
     }
 
 
