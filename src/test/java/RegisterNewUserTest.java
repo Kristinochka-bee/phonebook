@@ -96,12 +96,12 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
         String password = "test@gmail.com";
         String expectedErrorMessage = "Error! User already exists Login now?";
 
-
         //Act само действие
         // Используем локаторы, кот вынесли вверх ранее. В последовательности тестирования
         goToRegistrationPage();
         fillRegistrationForm(userData, password);
         clickSignUpButton();
+
 
         //Assert
         checkErorMessage(errorMessageBlock, expectedErrorMessage);
