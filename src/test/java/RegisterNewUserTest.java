@@ -102,6 +102,7 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
         fillRegistrationForm(userData, password);
         clickSignUpButton();
 
+
         //Assert
         checkErorMessage(errorMessageBlock, expectedErrorMessage);
 
