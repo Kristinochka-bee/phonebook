@@ -1,7 +1,9 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -29,12 +31,37 @@ public class TestBase {   //Этот класс базовый , другие к
         driver.findElement(locator).sendKeys(userData);
     }
 
+    public boolean isElementPresent(By by) {
+        try {  //пробуем найти элемент
+            driver.findElement(by); //если нашли ,значит трие
+            return true;
+        } catch (NoSuchElementException exception) { //иначе отлови в переменную exeption *исключение
+            exception.printStackTrace(); //в терминале будет выводится ошибка
+            return false;
+        }
+    }
+
+    public boolean isElementClickable(By by) {
+        try {  //пробуем найти элемент
+            driver.findElement(by).click(); //если нашли ,значит трие
+            return true;
+        } catch (NoSuchElementException exception) { //иначе отлови в переменную exeption *исключение
+            exception.printStackTrace(); //в терминале будет выводится ошибка
+            return false;
+        }
+    }
+
+    public void checkItemText(By locator, String expectedText, String err) {
+        String actualErrorMessage = driver.findElement(locator).getText();
+        Assert.assertEquals(actualErrorMessage, expectedText, err);
+    }
+
     //after
     @AfterMethod
     public void tearDown() throws InterruptedException {
         Thread.sleep(10000);
         if (driver != null) {
-            driver.quit();
+            //driver.quit();
         }
     }
 
