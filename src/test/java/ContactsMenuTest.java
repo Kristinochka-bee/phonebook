@@ -1,7 +1,7 @@
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
-public class ContactsMenuTest extends Login {
+public class ContactsMenuTest {
     By logoBrand = By.xpath("//a[@class='navbar-brand']//*[name()='svg']");
     By contactsButton = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]");
     By logout = By.xpath("//div[@class=\"my-2 my-lg-0\"]//button[2]");
@@ -21,7 +21,7 @@ public class ContactsMenuTest extends Login {
         //driver.findElement(logoBrand).click();
         //driver.findElement(contactsButton).click();
         //driver.findElement(account).click();
-        driver.findElement(logout).click();
+        //driver.findElement(logout).click();
 
 
         //Language Selector

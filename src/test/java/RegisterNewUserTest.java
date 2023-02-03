@@ -39,9 +39,8 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
     }
 
     private void checkErorMessage(By locator, String expectedErrorMessage) {
-        String actualErrorMessage = driver.findElement(locator).getText();
         String err = "Actual error message is not equal expected";
-        Assert.assertEquals(actualErrorMessage, expectedErrorMessage, err);
+        checkItemText(locator, expectedErrorMessage, err);
     }
 
 
@@ -94,10 +93,9 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
 
         String userData = "test@gmail.com";
         String password = "test@gmail.com";
-        String expectedErrorMessage = "Error! User already exists Login now?";
+        String expectedErrorMessage = "Error! User already exists UA.ChangeLanguage.Login now?";
 
         //Act само действие
-        // Используем локаторы, кот вынесли вверх ранее. В последовательности тестирования
         goToRegistrationPage();
         fillRegistrationForm(userData, password);
         clickSignUpButton();
