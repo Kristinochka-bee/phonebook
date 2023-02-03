@@ -19,7 +19,7 @@ public class CreateContactTest extends Login {
 
     Faker faker = new Faker();
 
-    private void openAddNewContactDialog(By button, By presentform) {
+    private void openAddNewContactDialog(By button, By form) {
         driver.findElement(addNewContacktButton).click();
         Assert.assertTrue(isElementPresent(modalDialogCreateContact));
     }
