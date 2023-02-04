@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class EditContactTest extends ChangeLanguage {
@@ -15,6 +16,13 @@ public class EditContactTest extends ChangeLanguage {
     By contactsLink = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]");
     By selectChangedNameInContactsTable = By.xpath("//div[@id='contacts-list']//button/b[normalize-space()='Molly']");
 
+    private void findContactInSearchFill(String firstName) {
+        fillField(firstName, searchContact);
+        driver.findElement(selectedNameInContactsTable).click();
+        driver.findElement(contactsDetailsTable).isDisplayed();
+        driver.findElement(buttonEdit).click();
+    }
+
     private void clearInputFields() {
         driver.findElement(firstNameContactInfo).clear();
         driver.findElement(lastNameContactInfo).clear();
@@ -27,11 +35,13 @@ public class EditContactTest extends ChangeLanguage {
         fillField(changedDescription, contactDescription);
     }
 
-    private void findContactInSearchFill(String firstName) {
-        fillField(firstName, searchContact);
-        driver.findElement(selectedNameInContactsTable).click();
-        driver.findElement(contactsDetailsTable).isDisplayed();
-        driver.findElement(buttonEdit).click();
+    private void checkFieldsOnContactInfoAfterEditContactDatas(String changedFirstName, String changedLastName, String changedDescription) {
+        String actualFirstName = driver.findElement(By.cssSelector("#contact-first-name")).getText();
+        Assert.assertEquals(actualFirstName, changedFirstName);
+        String actualLastName = driver.findElement(By.cssSelector("#contact-last-name")).getText();
+        Assert.assertEquals(actualLastName, changedLastName);
+        String actualDescription = driver.findElement(By.cssSelector("#contact-description")).getText();
+        Assert.assertEquals(actualDescription, changedDescription);
     }
 
     private void findContactWithModifiedData(String changedFirstName) {
@@ -50,6 +60,18 @@ public class EditContactTest extends ChangeLanguage {
         String changedLastName = "Miller";
         String changedDescription = "player";
 
+        findContactInSearchFill(firstName);
+
+        clearInputFields();
+        fillFieldsByAnotherDatas(changedFirstName, changedLastName, changedDescription);
+
+        driver.findElement(saveButton).click();
+        Thread.sleep(1000);
+
+        checkFieldsOnContactInfoAfterEditContactDatas(changedFirstName, changedLastName, changedDescription);
+
+        findContactWithModifiedData(changedFirstName);
+
         //fill field search contact
         //click on the selected Name "Cherri Mayer"
         //Make Sure that Edit window is opened
@@ -62,17 +84,8 @@ public class EditContactTest extends ChangeLanguage {
         //Click on the Contact button
         //enter just modifided name in search fill
         //click on the found name
-        //Make Sure that name equal to our changes
+        //Make Sure that name was found
 
-        findContactInSearchFill(firstName);
-
-        clearInputFields();
-        fillFieldsByAnotherDatas(changedFirstName, changedLastName, changedDescription);
-
-        driver.findElement(saveButton).click();
-        Thread.sleep(1000);
-
-        findContactWithModifiedData(changedFirstName);
     }
 
 
