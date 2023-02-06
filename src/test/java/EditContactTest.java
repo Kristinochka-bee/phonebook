@@ -13,11 +13,17 @@ public class EditContactTest extends ChangeLanguage {
     By lastNameContactInfo = By.xpath("//input[@name='input-ec-lastName']");
     By contactDescription = By.xpath("//textarea[@name='input-ec-description']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
+
     By contactsLink = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]");
     By selectChangedNameInContactsTable = By.xpath("//div[@id='contacts-list']//button/b[normalize-space()='Molly']");
 
-    private void findContactInSearchFill(String firstName) {
+
+    private void fillSearchField(String firstName) {
+        driver.findElement(searchContact).isDisplayed();
         fillField(firstName, searchContact);
+    }
+
+    private void openContact() {
         driver.findElement(selectedNameInContactsTable).click();
         driver.findElement(contactsDetailsTable).isDisplayed();
         driver.findElement(buttonEdit).click();
@@ -44,11 +50,6 @@ public class EditContactTest extends ChangeLanguage {
         Assert.assertEquals(actualDescription, changedDescription);
     }
 
-    private void findContactWithModifiedData(String changedFirstName) {
-        driver.findElement(contactsLink).click();
-        fillField(changedFirstName, searchContact);
-        driver.findElement(selectChangedNameInContactsTable).click();
-    }
 
     @Test
     public void editContact() throws InterruptedException {
@@ -60,7 +61,9 @@ public class EditContactTest extends ChangeLanguage {
         String changedLastName = "Miller";
         String changedDescription = "player";
 
-        findContactInSearchFill(firstName);
+
+        fillSearchField(firstName);
+        openContact();
 
         clearInputFields();
         fillFieldsByAnotherDatas(changedFirstName, changedLastName, changedDescription);
@@ -70,7 +73,6 @@ public class EditContactTest extends ChangeLanguage {
 
         checkFieldsOnContactInfoAfterEditContactDatas(changedFirstName, changedLastName, changedDescription);
 
-        findContactWithModifiedData(changedFirstName);
 
         //fill field search contact
         //click on the selected Name "Cherri Mayer"
@@ -81,10 +83,7 @@ public class EditContactTest extends ChangeLanguage {
         //Change description
         //Click on the button Save
         //Make sure the changes have been saved
-        //Click on the Contact button
-        //enter just modifided name in search fill
-        //click on the found name
-        //Make Sure that name was found
+
 
     }
 
