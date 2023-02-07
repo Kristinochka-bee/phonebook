@@ -3,6 +3,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -13,9 +15,15 @@ import java.util.concurrent.TimeUnit;
 public class TestBase {   //Этот класс базовый , другие классы могут от него наследоваться *(в этом классе указаны аннотации кот мы можем использовать в др классах)
     WebDriver driver;
 
+    public static Logger logger() {
+        return LoggerFactory.getLogger(TestBase.class);
+    }
+
     @BeforeClass
     public static void setUp() {
         WebDriverManager.chromedriver().setup();                      //Здесь можно указывать любой вид драйвера
+        logger().info("Setup chrome driver ");    //будет показываться лог с методом
+
     }
 
     @BeforeMethod
@@ -24,6 +32,7 @@ public class TestBase {   //Этот класс базовый , другие к
         driver.get("http://phonebook.telran-edu.de:8080/");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        logger().info("Start start");
     }
 
     public void fillField(String userData, By locator) {   //этот метод можно использовать в тех тестах,где он будет нужен. Заполнение полей
@@ -61,8 +70,9 @@ public class TestBase {   //Этот класс базовый , другие к
     public void tearDown() throws InterruptedException {
         Thread.sleep(10000);
         if (driver != null) {
-            //driver.quit();
+            driver.quit();
         }
+        logger().info("Stop test");
     }
 
 }
