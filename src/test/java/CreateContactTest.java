@@ -1,86 +1,81 @@
 import com.github.javafaker.Faker;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class CreateContactTest extends Login {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-    By addNewContacktButton = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[2]");
-    By modalDialogCreateContact = By.id("modal-content");
-    By firstNameFill = By.xpath("//input[@id='form-name']");
-    By lastNameFill = By.xpath("//input[@id=\"form-lastName\"]");
-    By AboutFill = By.xpath("//input[@id=\"form-about\"]");
-    By saveButton = By.cssSelector("[class='btn btn-primary']");
-    By contactsLink = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]");
-    By searchContact = By.id("input-search-contact");
-    By createdFirstName = By.id("contact-first-name");
-    By createdLastName = By.id("contact-last-name");
-    By createdDescription = By.id("contact-description");
+public class CreateContactTest extends ChangeLanguage {
 
     Faker faker = new Faker();
 
-    private void openAddNewContactDialog(By button, By form) {
-        driver.findElement(addNewContacktButton).click();
-        Assert.assertTrue(isElementPresent(modalDialogCreateContact));
+    @DataProvider
+    public Iterator<Object[]> newContact() {
+        List<Object[]> list = new ArrayList<>();
+        list.add(new Object[]{"Molly", "Miller", "created manually"});
+        list.add(new Object[]{"Bob", "Mr", "created 2 manually"});
+        list.add(new Object[]{"Bobbi", "Mrs", "created 3 manually"});
+
+        return list.iterator();
     }
 
-    private void fillAddNewContactForm(String firstName, String lastName, String About) {
-        fillField(firstName, firstNameFill);
-        fillField(lastName, lastNameFill);
-        fillField(About, AboutFill);
+    private void openAddNewContact() {
+        driver.findElement(By.cssSelector("[href='/contacts']")).click();
+        Assert.assertTrue(isElementPresent(By.xpath("//*[@role='dialog']")));
     }
 
-    private void checkFieldsOnContactInfoAfterCreatedContact(String firstName, String lastName, String About) {
-        checkItemText(createdFirstName, firstName, "Actual error message is not equal expected");
-        checkItemText(createdLastName, lastName, "Actual error message is not equal expected");
-        checkItemText(createdDescription, About, "Actual error message is not equal expected");
+    private void fillAddNewContactForm(String firstName, String lastName, String description) {
+        fillField(firstName, By.xpath("//*[@role='dialog']//*[@placeholder='First name']"));
+        fillField(lastName, By.xpath("//*[@role='dialog']//*[@placeholder='Last name']"));
+        fillField(description, By.xpath("//*[@role='dialog']//*[@placeholder='About']"));
     }
 
-    private void contactsLinkButton() {
-        driver.findElement(contactsLink).click();
-        Assert.assertTrue(isElementClickable(contactsLink));
+    private void saveNewContact() throws InterruptedException {
+        driver.findElement(By.xpath("//button[@class='btn btn-primary']")).click();
+        Thread.sleep(1000);
+        Assert.assertFalse(isElementPresent(By.xpath("//*[@role='dialog']")));
     }
 
-    private void searchCreatedContactBySearchFill(String firstName, Integer expectedCountRow) {
-        fillField(firstName, (searchContact));
-        Number actualCountRow = driver.findElements(By.xpath("//div[@id='contacts-list']")).size(); //cчитаем кол.во строк выводимый поисковиком
-        Assert.assertEquals(actualCountRow, expectedCountRow); //проверка актуального рез.та и ожидаемого*(1)
+    private void checkFieldsOnContactInfoAfterCreatedContact(String firstName, String lastName, String description) {
+        checkItemText(By.id("contact-first-name"), firstName, "Actual first name is not equal expected first name");
+        checkItemText(By.id("contact-last-name"), lastName, "Actual last name is not equal expected last name");
+        checkItemText(By.id("contact-description"), description, "Actual description is not equal expected description");
+    }
+
+    private void goToContactPageAndFillFilterField(String firstName) {
+        driver.findElement(By.xpath("//a[@class='navbar-brand']//*[name()='svg']")).click();
+        fillField(firstName, By.xpath("//*[@placeholder='Search...']"));
+    }
+
+    private void checkCountRows(Number expectedCountRow) {
+        Number actualCountRow = driver.findElements(By.xpath("//div[@id='contacts-list']")).size();
+        Assert.assertEquals(actualCountRow, expectedCountRow);
+    }
+
+    @Test(dataProvider = "newContact")
+    public void createNewContact(String firstName, String lastName, String description) throws InterruptedException {
+/*
+        String firstName = faker.internet().uuid();
+        String lastName = faker.internet().uuid();
+        String description = faker.internet().uuid();
+
+ */
+        Number expectedCountRow = 1;
+
+
+        openAddNewContact();
+        fillAddNewContactForm(firstName, lastName, description);
+        saveNewContact();
+        checkFieldsOnContactInfoAfterCreatedContact(firstName, lastName, description);
+        goToContactPageAndFillFilterField(firstName);
+        checkCountRows(expectedCountRow);
     }
 
     @Test
-    public void createContact() throws InterruptedException { //сначала сделаем позитивный тест а потом негативный
-        String firstName = faker.internet().uuid();
-        String lastName = faker.internet().uuid();  //уникальный gener id
-        String About = faker.internet().uuid();
-        Integer expectedCountRow = 1;
-
-
-        //тесткейсы
-        //click the button "Add new contact"
-        openAddNewContactDialog(addNewContacktButton, modalDialogCreateContact);
-
-        fillAddNewContactForm(firstName, lastName, About);
-
-        //click on the button "Save"
-        driver.findElement(saveButton).click();
-
-
-        Thread.sleep(1000);  //после клика на кнопку нужно "ожидание", чтоб не падал тест
-
-        //Edid form проверка созданных полей / метод вынесен в TestBase
-        checkFieldsOnContactInfoAfterCreatedContact(firstName, lastName, About);
-
-        //переход на главную страницу
-        contactsLinkButton();
-
-        //Filter by creation name
-        searchCreatedContactBySearchFill(firstName, expectedCountRow);
-
-
-        //Expected result : Created contact show with correct data in the contact table
-
+    public void createContactWithInvalidData() {
 
     }
-
-
 }
