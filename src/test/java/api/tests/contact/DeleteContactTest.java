@@ -28,7 +28,7 @@ public class DeleteContactTest extends ApiBase {
         doDelete(EndPoint.DELETE_CONTACT, 200, id);
     }
 
-    @Test(groups = ("negative"))
+    @Test //(groups = ("negative"))
     public void deleteContactWithoutId() {
         Random rnd = new Random();
         int wrongId = 100000 + rnd.nextInt(900000);
