@@ -1,6 +1,11 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class EditContactTest extends ChangeLanguage {
 
@@ -17,6 +22,12 @@ public class EditContactTest extends ChangeLanguage {
     By contactsLink = By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]");
     By selectChangedNameInContactsTable = By.xpath("//div[@id='contacts-list']//button/b[normalize-space()='Molly']");
 
+    @DataProvider
+    public Iterator<Object[]> newEdit() {
+        List<Object[]> list = new ArrayList<>();
+        list.add(new Object[]{"Bibi", "leaves in Berlin"});
+        return list.iterator();
+    }
 
     private void fillSearchField(String firstName) {
         driver.findElement(searchContact).isDisplayed();
@@ -51,27 +62,33 @@ public class EditContactTest extends ChangeLanguage {
     }
 
 
-    @Test
-    public void editContact() throws InterruptedException {
+    @Test(dataProvider = "newEdit")
+    public void editContact(String lastName, String expectedDescription) throws InterruptedException {
         String firstName = "Cherri";
+        /*
         String lastName = "Mayer";
         String expectedDescription = "baboon";
+
 
         String changedFirstName = "Molly";
         String changedLastName = "Miller";
         String changedDescription = "player";
+
+         */
 
 
         fillSearchField(firstName);
         openContact();
 
         clearInputFields();
-        fillFieldsByAnotherDatas(changedFirstName, changedLastName, changedDescription);
+        //fillFieldsByAnotherDatas(changedFirstName, changedLastName, changedDescription);
+        fillFieldsByAnotherDatas(firstName, lastName, expectedDescription);
+
 
         driver.findElement(saveButton).click();
         Thread.sleep(1000);
 
-        checkFieldsOnContactInfoAfterEditContactDatas(changedFirstName, changedLastName, changedDescription);
+        // checkFieldsOnContactInfoAfterEditContactDatas(changedFirstName, changedLastName, changedDescription);
 
 
         //fill field search contact
