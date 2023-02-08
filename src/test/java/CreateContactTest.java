@@ -12,6 +12,16 @@ public class CreateContactTest extends ChangeLanguage {
 
     Faker faker = new Faker();
 
+    By errorMessageBlock = By.xpath("//*[text()[contains(.,'Contact save fail')]]");
+    //*[text()[contains(.,'Contact save fail')]]
+    //*[contains(text(),'ABC')]
+    //app-toasts[@class='ngb-toasts'])[1]
+    By errorForm = By.id("form-error-firstName");
+
+    By firstNameFill = By.id("form-name");
+    By lastNameFill = By.id("form-lastName");
+    By descriptionFill = By.id("form-about");
+
     @DataProvider
     public Iterator<Object[]> newContact() {
         List<Object[]> list = new ArrayList<>();
@@ -55,6 +65,17 @@ public class CreateContactTest extends ChangeLanguage {
         Assert.assertEquals(actualCountRow, expectedCountRow);
     }
 
+    private void clickOnInputFields() {
+        driver.findElement(firstNameFill).click();
+        driver.findElement(lastNameFill).click();
+        driver.findElement(descriptionFill).click();
+    }
+
+    private void checkErrorMsg(String expectedErrorMessageOfForm) {
+        String actualErrorMeassage = driver.findElement(errorForm).getText();
+        Assert.assertEquals(actualErrorMeassage, expectedErrorMessageOfForm);
+    }
+
     @Test(dataProvider = "newContact")
     public void createNewContact(String firstName, String lastName, String description) throws InterruptedException {
 /*
@@ -65,7 +86,6 @@ public class CreateContactTest extends ChangeLanguage {
  */
         Number expectedCountRow = 1;
 
-
         openAddNewContact();
         fillAddNewContactForm(firstName, lastName, description);
         saveNewContact();
@@ -74,8 +94,36 @@ public class CreateContactTest extends ChangeLanguage {
         checkCountRows(expectedCountRow);
     }
 
+    //negative test
     @Test
-    public void createContactWithInvalidData() {
+    public void createContactWithInvalidData() throws InterruptedException {
+        String firstName = " ";
+        String lastName = " ";
+        String description = " ";
+        String expectedErrorMessage = "Contact save fail";
+
+
+        openAddNewContact();
+        fillAddNewContactForm(firstName, lastName, description);
+        saveNewContact();
+
+        String actualErrorMessage = driver.findElement(errorMessageBlock).getText();
+        Assert.assertEquals(actualErrorMessage, expectedErrorMessage);
+    }
+
+
+    @Test
+    public void createContactWithEmptyFirstFill() throws InterruptedException {
+
+        String expectedErrorMessageOfForm = "To add a contact, you must specify a name";
+
+        openAddNewContact();
+
+        clickOnInputFields();
+
+        checkErrorMsg(expectedErrorMessageOfForm);
 
     }
+
+
 }
