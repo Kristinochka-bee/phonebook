@@ -61,8 +61,7 @@ public class RegisterNewUserTest extends TestBase {  //этот класс от�
 
         //Assert сравнение,  проверка Позитивные тесты
         checkErorMessage(errorMessageBlock, expectedErrorMessage);
-
-
+        
     }
 
 
