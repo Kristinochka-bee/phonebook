@@ -1,3 +1,5 @@
+package e2e.tests;
+
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 

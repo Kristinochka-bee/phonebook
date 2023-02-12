@@ -1,3 +1,5 @@
+package e2e.tests;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +41,7 @@ public class FirstSeleniumTest {
         //driver.findElement(By.name("password")).sendKeys("test");    //By. по какому тиму ищем локатор- Найди по локатору name. sendKeys вводим значения 123
         // driver.findElement(By.xpath("//input[@name='email']")).sendKeys("test@gmail.com");
         // driver.findElement(By.xpath("//input[@name = 'password']")).sendKeys("test@gmail.com");
-        // driver.findElement(By.xpath("//button[contains(text(), 'Login')]")).click();
+        // driver.findElement(By.xpath("//button[contains(text(), 'UA.e2e.ChangeLanguage.e2e.helpers.Login')]")).click();
         // driver.findElement(By.xpath("//ul[@class = 'navbar-nav mr-auto']//li[1]")).click(); //выбираем из списка первый элемент
         // driver.findElement(By.xpath("//div[@class='list-group'][1]//button[@class='list-group-item']")).click();
         //driver.findElement(By.xpath("//input[@id='check-box-remove-contact']")).click();

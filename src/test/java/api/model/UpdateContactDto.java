@@ -9,11 +9,11 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//описывает тело нашего запроса
-public class ContactDto {
-
+public class UpdateContactDto {
+    int id;
     String firstName;
     String lastName;
     String description;
 
 }
+
