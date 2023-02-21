@@ -6,6 +6,10 @@ import org.testng.Assert;
 
 public class LoginHelpers extends CommonHelpers {
 
+    public LoginHelpers(WebDriver driver) {
+        super(driver);
+    }
+
     // e2e.helpers.Login отдельно, потомучто его будем использовать всегда, кроме Create User
 
     By loginForm = By.id("login-form");
@@ -15,9 +19,7 @@ public class LoginHelpers extends CommonHelpers {
 
     By contactsTable = By.id("contacts-list");
 
-    public LoginHelpers(WebDriver driver) {
-        super(driver);
-    }
+
 
     public void login() {
         String userEmail = "test@gmail.com";
@@ -28,7 +30,7 @@ public class LoginHelpers extends CommonHelpers {
         fillField(password, passwordField);
         driver.findElement(loginButton).click();
 
-        Assert.assertTrue(isElementPresent(contactsTable)); //отображается главная траничка
+        Assert.assertTrue(isElementPresent(contactsTable));
 
     }
 }

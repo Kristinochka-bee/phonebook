@@ -5,6 +5,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class RegisterHelpers extends CommonHelpers {
+
+    public RegisterHelpers(WebDriver driver) {
+        super(driver);
+    }
+
     By loginForm = By.id("login-form");
     By userRegistrationLink = By.cssSelector("[href=\"/user/registration\"]");
     By registrationForm = By.id("registration-form");
@@ -18,9 +23,7 @@ public class RegisterHelpers extends CommonHelpers {
 
     public By errorEmailMessageBlock = By.id("email-error-invalid");
 
-    public RegisterHelpers(WebDriver driver) {
-        super(driver);
-    }
+
 
 
     public void goToRegistrationPage() {

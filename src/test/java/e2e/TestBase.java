@@ -24,7 +24,7 @@ public class TestBase {
     @BeforeClass
     public static void setUp() {
         WebDriverManager.chromedriver().setup();                      //Здесь можно указывать любой вид драйвера
-        logger().info("Setup chrome driver ");    //будет показываться лог с методом
+        //будет показываться лог с методом
 
     }
 

@@ -21,6 +21,7 @@ public class DataProviders {
         return list.iterator();
     }
 
+
     @DataProvider
     public Iterator<Object[]> newContactWithCSV() throws IOException {
         List<Object[]> list = new ArrayList<>();
