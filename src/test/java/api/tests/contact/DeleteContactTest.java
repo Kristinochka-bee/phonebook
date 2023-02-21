@@ -1,7 +1,7 @@
 package api.tests.contact;
 
 import api.enums.EndPoint;
-import api.model.ContactDto;
+import api.model.contact.ContactDto;
 import api.tests.ApiBase;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -30,7 +30,7 @@ public class DeleteContactTest extends ApiBase {
     public void deleteContactWithoutId() {
         wrongId = getWrongId();
         response = doDelete(EndPoint.DELETE_CONTACT, 500, wrongId);
-        Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE);
+        Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE_FOR_CONTACT);
     }
 
 }

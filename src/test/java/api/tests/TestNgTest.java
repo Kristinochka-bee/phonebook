@@ -1,7 +1,7 @@
 package api.tests;
 
 import api.enums.EndPoint;
-import api.model.ContactDto;
+import api.model.contact.ContactDto;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;

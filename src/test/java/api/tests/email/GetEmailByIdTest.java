@@ -3,7 +3,7 @@ package api.tests.email;
 import api.enums.EndPoint;
 import api.model.contact.ContactDto;
 import api.model.email.AddEmailDto;
-import api.model.email.EmailDto;
+import api.model.email.UpdateEmailDto;
 import api.tests.ApiBase;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -49,7 +49,7 @@ public class GetEmailByIdTest extends ApiBase {
     @Test
     public void getEmailByEmailIdTest() {
         response = doGetRequestWithParam(EndPoint.GET_EMAIL_BY_EMAIL_ID, 200, emailId);
-        EmailDto emailDto = response.as(EmailDto.class); //response will be written into this fields
+        UpdateEmailDto emailDto = response.as(UpdateEmailDto.class); //response will be written into this fields
 
         Assert.assertEquals(emailDto.getId(), emailId);
         Assert.assertEquals(emailDto.getEmail(), email);
@@ -60,6 +60,7 @@ public class GetEmailByIdTest extends ApiBase {
 
     @Test
     public void getListOfEmailsByContactId() {
+        Assert.assertNotEquals(responseForEmail.jsonPath().getInt("[0].id"), null);
         Assert.assertEquals(responseForEmail.jsonPath().getString("[0].email"), email);
         Assert.assertEquals(responseForEmail.jsonPath().getInt("[0].contactId"), contactId);
 

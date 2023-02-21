@@ -1,7 +1,7 @@
 package api.tests.contact;
 
 import api.enums.EndPoint;
-import api.model.ContactDto;
+import api.model.contact.ContactDto;
 import api.tests.ApiBase;
 import io.restassured.common.mapper.TypeRef;
 import io.restassured.response.Response;
@@ -57,7 +57,7 @@ public class GetContactTest extends ApiBase {
     public void getContactByIdWithWrongId() {
         wrongId = getWrongId();
         response = doGetRequestWithParam(EndPoint.GET_CONTACT_BY_CONTACT_ID, 200, wrongId);
-        Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE);
+        Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE_FOR_CONTACT);
 
 
     }

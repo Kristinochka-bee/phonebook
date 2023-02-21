@@ -65,8 +65,8 @@ public class AddEmailTest extends ApiBase {
 
     @Test
     public void addEmailWithEmptyBody() {
-        addEmailDto = new AddEmailDto();
-        doPostReequest(EndPoint.ADD_NEW_EMAIL, 400, addEmailDto);
+        String body = "{}";
+        doPostReequest(EndPoint.ADD_NEW_EMAIL, 400, body);
     }
 
 }

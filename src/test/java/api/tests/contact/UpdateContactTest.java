@@ -1,8 +1,8 @@
 package api.tests.contact;
 
 import api.enums.EndPoint;
-import api.model.ContactDto;
-import api.model.UpdateContactDto;
+import api.model.contact.ContactDto;
+import api.model.contact.UpdateContactDto;
 import api.tests.ApiBase;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -42,12 +42,14 @@ public class UpdateContactTest extends ApiBase {
         updateContactDto.setDescription(faker.lorem().sentence(4));
 
         doPutReequest(EndPoint.UPDATE_CONTACT, 200, updateContactDto);
+
         response = doGetRequestWithParam(EndPoint.GET_CONTACT_BY_CONTACT_ID, 200, id);
 
         Assert.assertEquals(response.jsonPath().getInt("id"), id);
         Assert.assertEquals(response.jsonPath().getString("firstName"), updateContactDto.getFirstName());
         Assert.assertEquals(response.jsonPath().getString("lastName"), updateContactDto.getLastName());
         Assert.assertEquals(response.jsonPath().getString("description"), updateContactDto.getDescription());
+
 
     }
 }

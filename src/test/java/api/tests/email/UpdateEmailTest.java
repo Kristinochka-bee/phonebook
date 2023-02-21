@@ -3,7 +3,7 @@ package api.tests.email;
 import api.enums.EndPoint;
 import api.model.contact.ContactDto;
 import api.model.email.AddEmailDto;
-import api.model.email.EmailDto;
+import api.model.email.UpdateEmailDto;
 import api.tests.ApiBase;
 import com.github.javafaker.Faker;
 import io.restassured.response.Response;
@@ -25,7 +25,7 @@ public class UpdateEmailTest extends ApiBase {
     Response responseForEmail;
     ContactDto contactDto;
     AddEmailDto addEmailDto;
-    EmailDto emailDto;
+    UpdateEmailDto emailDto;
 
     @BeforeMethod
     public void precondition() {
@@ -51,7 +51,7 @@ public class UpdateEmailTest extends ApiBase {
 
     @Test
     public void updateEmail() {
-        emailDto = new EmailDto();
+        emailDto = new UpdateEmailDto();
         emailDto.setId(emailId);
         emailDto.setEmail(newEmail);
         emailDto.setContactId(contactId);
@@ -63,7 +63,7 @@ public class UpdateEmailTest extends ApiBase {
     @Test
     public void updateEmailWithWrongEmail() {
         wrongEmailId = getWrongId();
-        emailDto = new EmailDto();
+        emailDto = new UpdateEmailDto();
         emailDto.setId(wrongEmailId);
         emailDto.setEmail(newEmail);
         emailDto.setContactId(contactId);
@@ -74,7 +74,7 @@ public class UpdateEmailTest extends ApiBase {
 
     @Test
     public void updateEmailWithoutEmailId() {
-        emailDto = new EmailDto();
+        emailDto = new UpdateEmailDto();
         emailDto.setEmail(newEmail);
         emailDto.setContactId(contactId);
         Response responseForUpdate = doPutReequest(EndPoint.UPDATE_EMAIL, 500, emailDto);
