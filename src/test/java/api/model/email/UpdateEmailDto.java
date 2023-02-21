@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class EmailDto {
+public class UpdateEmailDto {
     int id;
     String email;
     int contactId;
