@@ -1,4 +1,4 @@
-package api.model;
+package api.model.contact;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,11 +9,12 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateContactDto {
-    int id;
+//описывает тело нашего запроса
+public class ContactDto {
+
     String firstName;
     String lastName;
     String description;
 
-}
 
+}
