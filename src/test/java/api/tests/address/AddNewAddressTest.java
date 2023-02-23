@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 
 
 public class AddNewAddressTest extends ApiBase {
@@ -62,6 +62,7 @@ public class AddNewAddressTest extends ApiBase {
         addressDto.setContactId(wrongId);
 
         response = doPostReequest(EndPoint.ADD_NEW_ADDRESS, 500, addressDto);
+
         Assert.assertEquals(response.jsonPath().getString("message"), ERROR_MESSAGE_FOR_CONTACT);
     }
 

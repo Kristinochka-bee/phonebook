@@ -12,7 +12,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.NON_DEFAULT)
+
 
 public class AddNewPhoneTest extends ApiBase {
     Faker faker = new Faker();
@@ -53,7 +54,7 @@ public class AddNewPhoneTest extends ApiBase {
     public void addNewPhoneWithWrongIdTest() {
         wrongId = getWrongId();
         phoneDto = new AddPhoneDto();
-        phoneDto.setCountryCode(faker.address().countryCode());
+        phoneDto.setCountryCode("+" + faker.phoneNumber().subscriberNumber(3));
         phoneDto.setPhoneNumber(faker.phoneNumber().phoneNumber());
         phoneDto.setContactId(wrongId);
 
