@@ -21,7 +21,11 @@ public enum EndPoint {
     ADD_NEW_PHONE("/api/phone"),
     UPDATE_PHONE("/api/phone"),
     GET_LIST_OF_PHONES_BY_CONTACT_ID("/api/phone/{id}/all"),
-    GET_PHONE_BY_PHONE_ID("/api/phone/{id}");
+    GET_PHONE_BY_PHONE_ID("/api/phone/{id}"),
+    UPDATE_ADDRESS("/api/address"),
+    GET_LIST_OF_ADDRESSES_BY_CONTACT_ID("/api/address/{id}/all"),
+    GET_ADDRESS_BY_ADDRESS_ID("/api/address/{id}");
+
 
     private final String value;
 }
