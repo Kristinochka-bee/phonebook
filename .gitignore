@@ -1,9 +1,10 @@
 .gradle
-build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 src/test/test_logs
+records
+reference
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

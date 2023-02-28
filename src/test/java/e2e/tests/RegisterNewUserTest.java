@@ -31,14 +31,14 @@ public class RegisterNewUserTest extends TestBase {
         String expectedEmailErrorMessage = "Email must be a valid email address."; //как должно быть
         String expectedPasswordErrorMessage = "Password must be no longer than 20 characters."; //как должно быть
 
-        app.getRegister().startRecording();
+        // app.getRegister().startRecording();
         app.getRegister().goToRegistrationPage();
         app.getRegister().fillRegistrationForm(userData, password);
         Assert.assertFalse(app.getRegister().isElementPresent(app.getRegister().errorMessageBlock)); // фактический результат отображаемой ошибки
 
         app.getRegister().checkErorMessage(app.getRegister().errorEmailMessageBlock, expectedEmailErrorMessage);
         app.getRegister().checkErorMessage(app.getRegister().errorPasswordMaxLengthMessageBlock, expectedPasswordErrorMessage);
-        app.getRegister().startRecording();
+        // app.getRegister().startRecording();
     }
 
     @Test
