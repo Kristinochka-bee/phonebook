@@ -5,6 +5,7 @@ import e2e.helpers.CreateContactHelpers;
 import e2e.helpers.EditeContactHelpers;
 import e2e.helpers.LoginHelpers;
 import e2e.helpers.RegisterHelpers;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -44,7 +45,8 @@ public class AplicationManager {
 
 
     protected void init() {
-        driver = new ChromeDriver();                                //указываем драйвер кот будем использолвать
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();//указываем драйвер кот будем использолвать
         driver.get("http://phonebook.telran-edu.de:8080/");
         driver.manage().window();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

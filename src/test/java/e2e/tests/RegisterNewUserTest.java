@@ -26,15 +26,15 @@ public class RegisterNewUserTest extends TestBase {
 
     @Test
     public void registerNewUserWithInvalidData() throws IOException, AWTException {
-        String userData = faker.internet().password(); //вызываем метод у faker для 3-х полей с названием userData. Будут генерироваться эмайлы , пароли и confirmPassField рандомно
-        String password = faker.internet().emailAddress(); //поменяли местами пароль и емайл
-        String expectedEmailErrorMessage = "Email must be a valid email address."; //как должно быть
-        String expectedPasswordErrorMessage = "Password must be no longer than 20 characters."; //как должно быть
+        String userData = faker.internet().password();
+        String password = faker.internet().emailAddress();
+        String expectedEmailErrorMessage = "Email must be a valid email address.";
+        String expectedPasswordErrorMessage = "Password must be no longer than 20 characters.";
 
         app.getRegister().startRecording();
         app.getRegister().goToRegistrationPage();
         app.getRegister().fillRegistrationForm(userData, password);
-        Assert.assertFalse(app.getRegister().isElementPresent(app.getRegister().errorMessageBlock)); // фактический результат отображаемой ошибки
+        Assert.assertFalse(app.getRegister().isElementPresent(app.getRegister().errorMessageBlock));
 
         app.getRegister().checkErorMessage(app.getRegister().errorEmailMessageBlock, expectedEmailErrorMessage);
         app.getRegister().checkErorMessage(app.getRegister().errorPasswordMaxLengthMessageBlock, expectedPasswordErrorMessage);

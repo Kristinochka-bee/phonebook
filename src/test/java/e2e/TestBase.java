@@ -1,11 +1,9 @@
 package e2e;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
 import java.io.IOException;
@@ -19,13 +17,6 @@ public class TestBase {
 
     public static Logger logger() {
         return LoggerFactory.getLogger(TestBase.class);
-    }
-
-    @BeforeClass
-    public static void setUp() {
-        WebDriverManager.chromedriver().setup();                      //Здесь можно указывать любой вид драйвера
-        //будет показываться лог с методом
-
     }
 
     @BeforeMethod
@@ -51,7 +42,7 @@ public class TestBase {
         if (result.isSuccess()) {
             logger().info("PASSED" + result.getMethod().getMethodName());
         } else {
-            logger().info("FAILED" + result.getMethod().getMethodName() + "Screenshot path: " + app.takeScreenshot());
+            logger().info("FAILED" + result.getMethod().getMethodName());
 
         }
         logger().info("============================================================");

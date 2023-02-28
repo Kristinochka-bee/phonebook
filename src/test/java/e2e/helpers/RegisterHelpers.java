@@ -24,8 +24,6 @@ public class RegisterHelpers extends CommonHelpers {
     public By errorEmailMessageBlock = By.id("email-error-invalid");
 
 
-
-
     public void goToRegistrationPage() {
         Assert.assertTrue(isElementPresent(loginForm));
         driver.findElement(userRegistrationLink).click();
@@ -39,8 +37,9 @@ public class RegisterHelpers extends CommonHelpers {
     }
 
     public void clickSignUpButton() {
-        driver.findElement(loginButton).click();
         driver.findElement(loginButton).isEnabled();
+        driver.findElement(loginButton).click();
+
     }
 
     public void checkErorMessage(By locator, String expectedErrorMessage) {
