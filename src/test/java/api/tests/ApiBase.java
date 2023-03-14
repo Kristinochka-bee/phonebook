@@ -12,7 +12,7 @@ import io.restassured.specification.RequestSpecification;
 import java.util.Random;
 
 public class ApiBase {
-    Faker faker = new Faker();
+    protected Faker faker = new Faker();
     ContactDto contactDto;
 
     final String BASE_URI = "http://phonebook.telran-edu.de:8080";

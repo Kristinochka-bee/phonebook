@@ -17,7 +17,7 @@ public class ContactPage extends PageBase {
     @FindBy(xpath = "//a[@id=\"ngb-nav-2\"]")
     private WebElement infoTab;
 
-    @FindBy(xpath = "//a[@id=\"ngb-nav-3\"]")
+    @FindBy(xpath = "//a[normalize-space()=\"Телефоны\"]")
     private WebElement phoneTab;
 
     @FindBy(xpath = "//a[@id=\"ngb-nav-4\"]")
